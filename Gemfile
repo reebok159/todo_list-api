@@ -14,6 +14,7 @@ gem 'rack-cors'
 gem 'apipie-rails', '~> 0.5.5'
 gem 'acts_as_list'
 gem 'cancancan', '~> 2.0'
+gem 'rack-cors', require: 'rack/cors'
 
 group :development, :test do
   gem 'factory_girl_rails', '~> 4.8.0'
@@ -21,6 +22,7 @@ group :development, :test do
   gem 'pry-byebug', '~> 3.5', '>= 3.5.1'
   gem 'ffaker', '~> 2.7'
   gem 'brakeman'
+  gem 'rubocop', require: false
 end
 
 group :test do
