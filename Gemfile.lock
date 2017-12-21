@@ -47,6 +47,7 @@ GEM
     brakeman (4.0.1)
     builder (3.2.3)
     byebug (9.1.0)
+    cancancan (2.1.2)
     coderay (1.1.2)
     concurrent-ruby (1.0.5)
     crass (1.0.3)
@@ -190,6 +191,7 @@ DEPENDENCIES
   acts_as_list
   apipie-rails (~> 0.5.5)
   brakeman
+  cancancan (~> 2.0)
   database_cleaner (~> 1.6.1)
   devise_token_auth (~> 0.1.42)
   factory_girl_rails (~> 4.8.0)
@@ -208,4 +210,4 @@ DEPENDENCIES
   tzinfo-data
 
 BUNDLED WITH
-   1.15.3
+   1.16.0

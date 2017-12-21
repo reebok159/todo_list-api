@@ -13,7 +13,7 @@ gem 'devise_token_auth', '~> 0.1.42'
 gem 'rack-cors'
 gem 'apipie-rails', '~> 0.5.5'
 gem 'acts_as_list'
-
+gem 'cancancan', '~> 2.0'
 
 group :development, :test do
   gem 'factory_girl_rails', '~> 4.8.0'
