@@ -2,10 +2,19 @@ class Api::V1::ProjectsController < ApplicationController
   before_action :authenticate_user!
   load_and_authorize_resource through: :current_user
 
+  resource_description do
+    error code: 401, desc: 'Unauthorized'
+    error code: 404, desc: 'Not found'
+    formats ['json']
+  end
+
+  api :GET, '/api/v1/projects', 'Show all user projects'
   def index
     render json: @projects
   end
 
+  api :POST, '/api/v1/projects', 'Create new project'
+  param :name, String, desc: "Name of project", required: true
   def create
     if @project.save
       render json: @project, status: :created
@@ -14,10 +23,15 @@ class Api::V1::ProjectsController < ApplicationController
     end
   end
 
+  api :GET, '/api/v1/projects/:id', 'Show user project by id'
+  param :id, Fixnum, desc: "Project id", required: true
   def show
     render json: @project
   end
 
+  api :PUT, '/api/v1/projects/:id', 'Update project by id'
+  param :id, Fixnum, desc: "Project id", required: true
+  param :name, String, desc: "New project name", required: true
   def update
     if @project.update(project_params)
       render json: @project, status: :ok
@@ -26,6 +40,8 @@ class Api::V1::ProjectsController < ApplicationController
     end
   end
 
+  api :DELETE, '/api/v1/projects/:id', 'Delete project by id'
+  param :id, Fixnum, desc: "Project id", required: true
   def destroy
     @project.destroy
     render json: {}, status: :no_content
