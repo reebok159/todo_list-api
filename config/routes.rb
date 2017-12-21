@@ -5,8 +5,16 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :projects do
-        resources :tasks
+        resources :tasks do
+          resources :comments
+          member do
+            get :up
+            get :down
+            get :toggle_completed
+          end
+        end
       end
     end
   end
+
 end

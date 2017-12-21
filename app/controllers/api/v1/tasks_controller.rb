@@ -40,9 +40,17 @@ class Api::V1::TasksController < ApplicationController
     @task.decrement_position
   end
 
+  def toggle_completed
+    if @task.update(task_params)
+      render json: @task, status: :ok
+    else
+      render json: @task.errors, status: :unprocessable_entity
+    end
+  end
+
   private
 
     def task_params
-      params.require(:task).permit( :name, :deadline )
+      params.require(:task).permit( :name, :deadline, :completed )
     end
 end
