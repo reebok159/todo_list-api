@@ -8,13 +8,19 @@ class Api::V1::ProjectsController < ApplicationController
     formats ['json']
   end
 
+  def_param_group :project do
+    param :project, Hash do
+      param :name, String, desc: "Name of project", required: true
+    end
+  end
+
   api :GET, '/api/v1/projects', 'Show all user projects'
   def index
     render json: @projects
   end
 
   api :POST, '/api/v1/projects', 'Create new project'
-  param :name, String, desc: "Name of project", required: true
+  param_group :project
   def create
     if @project.save
       render json: @project, status: :created
@@ -24,14 +30,14 @@ class Api::V1::ProjectsController < ApplicationController
   end
 
   api :GET, '/api/v1/projects/:id', 'Show user project by id'
-  param :id, Fixnum, desc: "Project id", required: true
+  param :id, :number, desc: "Project id", required: true
   def show
     render json: @project
   end
 
   api :PUT, '/api/v1/projects/:id', 'Update project by id'
-  param :id, Fixnum, desc: "Project id", required: true
-  param :name, String, desc: "New project name", required: true
+  param :id, :number, desc: "Project id", required: true
+  param_group :project
   def update
     if @project.update(project_params)
       render json: @project, status: :ok
@@ -41,7 +47,7 @@ class Api::V1::ProjectsController < ApplicationController
   end
 
   api :DELETE, '/api/v1/projects/:id', 'Delete project by id'
-  param :id, Fixnum, desc: "Project id", required: true
+  param :id, :number, desc: "Project id", required: true
   def destroy
     @project.destroy
     render json: {}, status: :no_content

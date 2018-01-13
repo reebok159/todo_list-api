@@ -9,17 +9,23 @@ class Api::V1::TasksController < ApplicationController
     formats ['json']
   end
 
+  def_param_group :task do
+    param :task, Hash do
+      param :project_id, :number, desc: "Project id", required: true
+      param :name, String, desc: "Text of task", required: true
+      param :deadline, DateTime, desc: "Deadline", allow_nil: true
+      param :completed, [true, false], desc: "Task is completed?"
+    end
+  end
+
   api :GET, '/api/v1/projects/:project_id/tasks/', 'Show tasks from project'
-  param :project_id, Fixnum, desc: "Project id", required: true
+  param :project_id, :number, desc: "Project id", required: true
   def index
     render json: @tasks
   end
 
   api :POST, '/api/v1/projects/:project_id/tasks/', 'Show tasks from project'
-  param :project_id, Fixnum, desc: "Project id", required: true
-  param :name, String, desc: "Text of task", required: true
-  param :deadline, DateTime, desc: "Deadline"
-  param :completed, [true, false], desc: "Task is completed?"
+  param_group :task
   def create
     if @task.save
       render json: @task, status: :created
@@ -29,18 +35,15 @@ class Api::V1::TasksController < ApplicationController
   end
 
   api :GET, '/api/v1/projects/:project_id/tasks/:id', 'Show task by id'
-  param :project_id, Fixnum, desc: "Project id", required: true
-  param :id, Fixnum, desc: "Task id", required: true
+  param :id, :number, desc: "Task id", required: true
+  param :project_id, :number, desc: "Project id", required: true
   def show
     render json: @task
   end
 
   api :PUT, '/api/v1/projects/:project_id/tasks/:id', 'Update task by id'
-  param :id, Fixnum, desc: "Task id", required: true
-  param :project_id, Fixnum, desc: "Project id", required: true
-  param :name, String, desc: "Text of task", required: true
-  param :deadline, DateTime, desc: "Deadline"
-  param :completed, [true, false], desc: "Task is completed?"
+  param :id, :number, desc: "Task id", required: true
+  param_group :task
   def update
     if @task.update(task_params)
       render json: @task, status: :ok
@@ -50,30 +53,30 @@ class Api::V1::TasksController < ApplicationController
   end
 
   api :DELETE, '/api/v1/projects/:project_id/tasks/:id', 'Delete task by id'
-  param :id, Fixnum, desc: "Task id", required: true
-  param :project_id, Fixnum, desc: "Project id", required: true
+  param :id, :number, desc: "Task id", required: true
+  param :project_id, :number, desc: "Project id", required: true
   def destroy
     @task.destroy
     render json: {}, status: :no_content
   end
 
   api :GET, '/api/v1/projects/:project_id/tasks/:id/up', 'Increase task priority'
-  param :id, Fixnum, desc: "Task id", required: true
-  param :project_id, Fixnum, desc: "Project id", required: true
+  param :id, :number, desc: "Task id", required: true
+  param :project_id, :number, desc: "Project id", required: true
   def up
     @task.move_higher
   end
 
   api :GET, '/api/v1/projects/:project_id/tasks/:id/down', 'Decrease task priority'
-  param :id, Fixnum, desc: "Task id", required: true
-  param :project_id, Fixnum, desc: "Project id", required: true
+  param :id, :number, desc: "Task id", required: true
+  param :project_id, :number, desc: "Project id", required: true
   def down
     @task.move_lower
   end
 
   api :GET, '/api/v1/projects/:project_id/tasks/:id/toggle_completed', 'Toggle task status'
-  param :id, Fixnum, desc: "Task id", required: true
-  param :project_id, Fixnum, desc: "Project id", required: true
+  param :id, :number, desc: "Task id", required: true
+  param :project_id, :number, desc: "Project id", required: true
   def toggle_completed
     if @task.update(task_params)
       render json: @task, status: :ok
