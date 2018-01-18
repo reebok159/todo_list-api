@@ -13,7 +13,7 @@ class Api::V1::TasksController < ApplicationController
     param :task, Hash do
       param :project_id, :number, desc: "Project id", required: true
       param :name, String, desc: "Text of task", required: true
-      param :deadline, DateTime, desc: "Deadline", allow_nil: true
+      param :deadline, String, desc: "Deadline", allow_nil: true
       param :completed, [true, false], desc: "Task is completed?"
     end
   end
@@ -24,7 +24,7 @@ class Api::V1::TasksController < ApplicationController
     render json: @tasks
   end
 
-  api :POST, '/api/v1/projects/:project_id/tasks/', 'Show tasks from project'
+  api :POST, '/api/v1/projects/:project_id/tasks/', 'Add task to project'
   param_group :task
   def create
     if @task.save
@@ -64,24 +64,21 @@ class Api::V1::TasksController < ApplicationController
   param :id, :number, desc: "Task id", required: true
   param :project_id, :number, desc: "Project id", required: true
   def up
-    @task.move_higher
+    if @task.move_higher
+      render json: @task, status: :ok
+    else
+      render json: @task, status: :no_content
+    end
   end
 
   api :GET, '/api/v1/projects/:project_id/tasks/:id/down', 'Decrease task priority'
   param :id, :number, desc: "Task id", required: true
   param :project_id, :number, desc: "Project id", required: true
   def down
-    @task.move_lower
-  end
-
-  api :GET, '/api/v1/projects/:project_id/tasks/:id/toggle_completed', 'Toggle task status'
-  param :id, :number, desc: "Task id", required: true
-  param :project_id, :number, desc: "Project id", required: true
-  def toggle_completed
-    if @task.update(task_params)
+    if @task.move_lower
       render json: @task, status: :ok
     else
-      render json: @task.errors, status: :unprocessable_entity
+      render json: @task, status: :no_content
     end
   end
 

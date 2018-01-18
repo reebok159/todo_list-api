@@ -11,7 +11,6 @@ Rails.application.routes.draw do
           member do
             get :up
             get :down
-            get :toggle_completed
           end
         end
       end
