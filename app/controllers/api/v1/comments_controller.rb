@@ -9,11 +9,13 @@ class Api::V1::CommentsController < ApplicationController
   end
 
   def_param_group :comment do
-    param :comment, Hash do
-      param :task_id, :number, desc: "Task id", required: true
-      param :project_id, :number, desc: "Project id", required: true
-      param :text, String, desc: "Text of comment", required: true
+    param :comment, Hash, action_aware: true do
+
+      param :text, String, desc: "Text of comment"
+      #param :image, String, desc: "Image"
     end
+    param :task_id, :number, desc: "Task id", required: true
+      param :project_id, :number, desc: "Project id", required: true
   end
 
   api :GET, '/api/v1/projects/:project_id/tasks/:task_id/comments/', 'Show comments from task'
@@ -61,6 +63,6 @@ class Api::V1::CommentsController < ApplicationController
   private
 
     def comment_params
-      params.require(:comment).permit( :text )
+      params.require(:comment).permit( :text, :image )
     end
 end

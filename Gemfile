@@ -15,8 +15,15 @@ gem 'apipie-rails', '~> 0.5.5'
 gem 'acts_as_list'
 gem 'cancancan', '~> 2.0'
 gem 'rack-cors', require: 'rack/cors'
+gem 'fog-aws', '~> 1.4', '>= 1.4.1'
+gem "fog-google"
+gem "google-api-client", "> 0.8.5", "< 0.9"
+gem 'carrierwave', '~> 1.1'
+gem 'mini_magick', '~> 4.8'
+
 
 group :development, :test do
+  gem 'dotenv-rails', '~> 2.2', '>= 2.2.1'
   gem 'factory_girl_rails', '~> 4.8.0'
   gem 'rspec-rails', '~> 3.7', '>= 3.7.2'
   gem 'pry-byebug', '~> 3.5', '>= 3.5.1'
