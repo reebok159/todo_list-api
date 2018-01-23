@@ -9,13 +9,10 @@ class Api::V1::CommentsController < ApplicationController
   end
 
   def_param_group :comment do
-    param :comment, Hash, action_aware: true do
-
+    param :comment, Hash do
       param :text, String, desc: "Text of comment"
-      #param :image, String, desc: "Image"
     end
-    param :task_id, :number, desc: "Task id", required: true
-      param :project_id, :number, desc: "Project id", required: true
+    param_group :nested_ids
   end
 
   api :GET, '/api/v1/projects/:project_id/tasks/:task_id/comments/', 'Show comments from task'
@@ -29,24 +26,6 @@ class Api::V1::CommentsController < ApplicationController
   def create
     if @comment.save
       render json: @comment, status: :created
-    else
-      render json: @comment.errors, status: :unprocessable_entity
-    end
-  end
-
-  api :GET, '/api/v1/projects/:project_id/tasks/:task_id/comments/:id', 'Show comment by id'
-  param :id, :number, desc: "Comment id", required: true
-  param_group :nested_ids
-  def show
-    render json: @comment
-  end
-
-  api :PUT, '/api/v1/projects/:project_id/tasks/:task_id/comments/:id', 'Update comment by id'
-  param :id, :number, desc: "Comment id", required: true
-  param_group :comment
-  def update
-    if @comment.update(comment_params)
-      render json: @comment, status: :ok
     else
       render json: @comment.errors, status: :unprocessable_entity
     end

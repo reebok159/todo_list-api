@@ -1,5 +1,6 @@
 FactoryGirl.define do
   factory :comment do
-    text "MyString"
+    text FFaker::Lorem.sentence(5)
+    task
   end
 end

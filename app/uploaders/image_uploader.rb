@@ -4,8 +4,9 @@ class ImageUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
-  storage :file
-  # storage :fog
+  #storage :file
+  storage :fog
+
   def size_range
     0..10.megabytes
   end
@@ -44,7 +45,6 @@ class ImageUploader < CarrierWave::Uploader::Base
   def extension_whitelist
     %w(jpg jpeg png)
   end
-
 
   def filename
     "#{secure_token(10)}.#{file.extension}" if original_filename.present?

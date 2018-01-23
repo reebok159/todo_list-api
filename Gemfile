@@ -5,6 +5,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+gem 'i18n', '~> 0.9.1'
 gem 'rails', '~> 5.1.4'
 gem 'pg', '~> 0.21.0'
 gem 'puma', '~> 3.7'
@@ -24,7 +25,6 @@ gem 'mini_magick', '~> 4.8'
 
 group :development, :test do
   gem 'dotenv-rails', '~> 2.2', '>= 2.2.1'
-  gem 'factory_girl_rails', '~> 4.8.0'
   gem 'rspec-rails', '~> 3.7', '>= 3.7.2'
   gem 'pry-byebug', '~> 3.5', '>= 3.5.1'
   gem 'ffaker', '~> 2.7'
@@ -35,6 +35,9 @@ end
 group :test do
   gem 'database_cleaner', '~> 1.6.1'
   gem 'simplecov', require: false
+  gem 'factory_girl_rails', '~> 4.8.0'
+  gem 'json_matchers', '~> 0.7.2'
+  gem 'shoulda-matchers', '~> 3.1'
 end
 
 group :development do

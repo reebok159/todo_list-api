@@ -1,5 +1,12 @@
 FactoryGirl.define do
   factory :project do
-    name "MyString"
+    user
+    name { FFaker::Book.title }
+
+    trait :with_tasks do
+      after(:create) do |proj|
+        FactoryGirl.create_list(:task, 3, project: proj)
+      end
+    end
   end
 end

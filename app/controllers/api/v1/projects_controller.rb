@@ -9,7 +9,7 @@ class Api::V1::ProjectsController < ApplicationController
   end
 
   def_param_group :project do
-    param :project, Hash do
+    param :project, Hash, action_aware: true do
       param :name, String, desc: "Name of project", required: true
     end
   end

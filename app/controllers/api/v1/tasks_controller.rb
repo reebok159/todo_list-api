@@ -9,12 +9,17 @@ class Api::V1::TasksController < ApplicationController
     formats ['json']
   end
 
+  def_param_group :ids do
+    param :id, :number, desc: "Task id", required: true
+    param :project_id, :number, desc: "Project id", required: true
+  end
+
   def_param_group :task do
+    param :project_id, :number, desc: "Project id", required: true
     param :task, Hash do
-      param :project_id, :number, desc: "Project id", required: true
       param :name, String, desc: "Text of task", required: true
       param :deadline, String, desc: "Deadline", allow_nil: true
-      param :completed, [true, false], desc: "Task is completed?"
+      param :completed, [true, false, "true", "false"], desc: "Task is completed?"
     end
   end
 
@@ -35,8 +40,7 @@ class Api::V1::TasksController < ApplicationController
   end
 
   api :GET, '/api/v1/projects/:project_id/tasks/:id', 'Show task by id'
-  param :id, :number, desc: "Task id", required: true
-  param :project_id, :number, desc: "Project id", required: true
+  param_group :ids
   def show
     render json: @task
   end
@@ -53,16 +57,14 @@ class Api::V1::TasksController < ApplicationController
   end
 
   api :DELETE, '/api/v1/projects/:project_id/tasks/:id', 'Delete task by id'
-  param :id, :number, desc: "Task id", required: true
-  param :project_id, :number, desc: "Project id", required: true
+  param_group :ids
   def destroy
     @task.destroy
     render json: {}, status: :no_content
   end
 
   api :GET, '/api/v1/projects/:project_id/tasks/:id/up', 'Increase task priority'
-  param :id, :number, desc: "Task id", required: true
-  param :project_id, :number, desc: "Project id", required: true
+  param_group :ids
   def up
     if @task.move_higher
       render json: @task, status: :ok
@@ -72,8 +74,7 @@ class Api::V1::TasksController < ApplicationController
   end
 
   api :GET, '/api/v1/projects/:project_id/tasks/:id/down', 'Decrease task priority'
-  param :id, :number, desc: "Task id", required: true
-  param :project_id, :number, desc: "Project id", required: true
+  param_group :ids
   def down
     if @task.move_lower
       render json: @task, status: :ok
@@ -85,6 +86,6 @@ class Api::V1::TasksController < ApplicationController
   private
 
     def task_params
-      params.require(:task).permit( :name, :deadline, :completed )
+      params.require(:task).permit(:name, :deadline, :completed)
     end
 end
