@@ -1,24 +1,10 @@
-# README
+# todo_list-api
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+#### Link to TodoList client: ####
+  https://todolist-client.herokuapp.com
 
-Things you may want to cover:
+#### TodoList api (docs): ####
+  https://egntodoapi.herokuapp.com
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+#### TodoList client src: ####
+  https://github.com/reebok159/todo_list-client
