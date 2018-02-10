@@ -11,7 +11,6 @@ gem 'pg', '~> 0.21.0'
 gem 'puma', '~> 3.7'
 gem 'jbuilder', '~> 2.5'
 gem 'devise_token_auth', '~> 0.1.42'
-gem 'rack-cors'
 gem 'apipie-rails', '~> 0.5.5'
 gem 'acts_as_list'
 gem 'cancancan', '~> 2.0'
@@ -21,7 +20,6 @@ gem "fog-google"
 gem "google-api-client", "> 0.8.5", "< 0.9"
 gem 'carrierwave', '~> 1.1'
 gem 'mini_magick', '~> 4.8'
-
 
 group :development, :test do
   gem 'dotenv-rails', '~> 2.2', '>= 2.2.1'
@@ -34,10 +32,10 @@ end
 
 group :test do
   gem 'database_cleaner', '~> 1.6.1'
-  gem 'simplecov', require: false
-  gem 'factory_girl_rails', '~> 4.8.0'
+  gem 'factory_bot_rails', '~> 4.8', '>= 4.8.2'
   gem 'json_matchers', '~> 0.7.2'
   gem 'shoulda-matchers', '~> 3.1'
+  gem 'simplecov', require: false
 end
 
 group :development do

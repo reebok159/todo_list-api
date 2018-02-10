@@ -16,10 +16,11 @@ class Api::V1::TasksController < ApplicationController
 
   def_param_group :task do
     param :project_id, :number, desc: "Project id", required: true
-    param :task, Hash do
+    param :task, Hash, action_aware: true do
       param :name, String, desc: "Text of task", required: true
       param :deadline, String, desc: "Deadline", allow_nil: true
       param :completed, [true, false, "true", "false"], desc: "Task is completed?"
+      param :priority, %w[up down]
     end
   end
 
@@ -49,7 +50,7 @@ class Api::V1::TasksController < ApplicationController
   param :id, :number, desc: "Task id", required: true
   param_group :task
   def update
-    if @task.update(task_params)
+    if Api::V1::TaskService.new(@task, task_params).update
       render json: @task, status: :ok
     else
       render json: @task.errors, status: :unprocessable_entity
@@ -63,29 +64,9 @@ class Api::V1::TasksController < ApplicationController
     render json: {}, status: :no_content
   end
 
-  api :GET, '/api/v1/projects/:project_id/tasks/:id/up', 'Increase task priority'
-  param_group :ids
-  def up
-    if @task.move_higher
-      render json: @task, status: :ok
-    else
-      render json: @task, status: :no_content
-    end
-  end
-
-  api :GET, '/api/v1/projects/:project_id/tasks/:id/down', 'Decrease task priority'
-  param_group :ids
-  def down
-    if @task.move_lower
-      render json: @task, status: :ok
-    else
-      render json: @task, status: :no_content
-    end
-  end
-
   private
 
-    def task_params
-      params.require(:task).permit(:name, :deadline, :completed)
-    end
+  def task_params
+    params.require(:task).permit(:name, :deadline, :completed, :priority)
+  end
 end

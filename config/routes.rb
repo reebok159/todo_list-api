@@ -10,10 +10,6 @@ Rails.application.routes.draw do
       resources :projects do
         resources :tasks do
           resources :comments, only: %i[index create destroy]
-          member do
-            get :up
-            get :down
-          end
         end
       end
     end

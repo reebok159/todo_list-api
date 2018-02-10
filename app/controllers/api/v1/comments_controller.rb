@@ -9,7 +9,7 @@ class Api::V1::CommentsController < ApplicationController
   end
 
   def_param_group :comment do
-    param :comment, Hash do
+    param :comment, Hash, action_aware: true do
       param :text, String, desc: "Text of comment"
     end
     param_group :nested_ids

@@ -1,12 +1,3 @@
-
-def body_as_json
-  json_str_to_hash(response.body)
-end
-
-def json_str_to_hash(str)
-  JSON.parse(str).with_indifferent_access
-end
-
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate

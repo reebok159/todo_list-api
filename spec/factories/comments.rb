@@ -1,6 +1,6 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :comment do
-    text FFaker::Lorem.sentence(5)
+    text FFaker::Lorem.characters(25)
     task
   end
 end

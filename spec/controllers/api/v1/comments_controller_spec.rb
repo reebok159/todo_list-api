@@ -1,12 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::CommentsController, type: :controller do
-  let(:user) { FactoryGirl.create(:user) }
-  let(:project) { FactoryGirl.create(:project, user: user) }
-  let(:task) { FactoryGirl.create(:task, project: project) }
-  let(:comment) { FactoryGirl.create(:comment, task: task) }
-  let(:valid_comment) { { text: FFaker::Lorem.characters(25) } }
-  let(:invalid_comment) { { text: ' ' } }
+  let(:user) { create(:user) }
+  let(:project) { create(:project, user: user) }
+  let(:task) { create(:task, project: project) }
+  let(:comment) { create(:comment, task: task) }
+  let(:valid_comment) { attributes_for(:comment) }
+  let(:invalid_comment) { attributes_for(:comment, text: ' ') }
 
   before(:each) do
     request.headers.merge!(user.create_new_auth_token)
@@ -47,7 +47,7 @@ RSpec.describe Api::V1::CommentsController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    let!(:comment) { FactoryGirl.create(:comment, task: task) }
+    let!(:comment) { create(:comment, task: task) }
 
     it 'deletes comment from task' do
       expect do
