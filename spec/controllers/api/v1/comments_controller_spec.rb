@@ -15,7 +15,7 @@ RSpec.describe Api::V1::CommentsController, type: :controller do
   describe 'GET #index' do
     it 'shows all comments from task' do
       get :index, params: { project_id: project.id, task_id: comment.task_id }
-      expect(response).to have_http_status(:success)
+      check_http_success_and_json(response)
       hash_body = JSON.parse(response.body)
       expect(hash_body.length).to eq(task.comments.length)
       expect(response).to match_response_schema("comments")
@@ -30,8 +30,7 @@ RSpec.describe Api::V1::CommentsController, type: :controller do
         comment: valid_comment
       }
 
-      expect(response).to have_http_status(:success)
-      expect(response.body).to look_like_json
+      check_http_success_and_json(response)
       expect(body_as_json[:text]).to eq(valid_comment[:text])
       expect(response).to match_response_schema("comment")
     end
