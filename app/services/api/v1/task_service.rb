@@ -1,13 +1,15 @@
 class Api::V1::TaskService
-  def initialize(task, params)
+  def initialize(task)
     @task = task
-    @params = params
   end
 
-  def update
+  def update(params)
+    @params = params
     return change_priority if @params[:priority]
     @task.update(@params)
   end
+
+  private
 
   def change_priority
     case @params[:priority]

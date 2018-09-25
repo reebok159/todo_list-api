@@ -50,7 +50,7 @@ class Api::V1::TasksController < ApplicationController
   param :id, :number, desc: "Task id", required: true
   param_group :task
   def update
-    if Api::V1::TaskService.new(@task, task_params).update
+    if Api::V1::TaskService.new(@task).update(task_params)
       render json: @task, status: :ok
     else
       render json: @task.errors, status: :unprocessable_entity
