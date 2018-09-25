@@ -1,0 +1,19 @@
+AllCops:
+  Exclude:
+    - Rakefile
+    - bin/**/*
+    - db/**/*
+    - config/**/*
+    - spec/**/*
+    - tmp/**/*
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+  SupportedStyles:
+    - single_quotes
+    - double_quotes
+Metrics/LineLength:
+  Max: 120
+Style/Documentation:
+  Enabled: false
+Documentation:
+  Enabled: false
