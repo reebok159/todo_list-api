@@ -18,7 +18,7 @@ RSpec.describe Api::V1::CommentsController, type: :controller do
       check_http_success_and_json(response)
       hash_body = JSON.parse(response.body)
       expect(hash_body.length).to eq(task.comments.length)
-      expect(response).to match_response_schema("comments")
+      expect(response).to match_response_schema('comments')
     end
   end
 
@@ -32,7 +32,7 @@ RSpec.describe Api::V1::CommentsController, type: :controller do
 
       check_http_success_and_json(response)
       expect(body_as_json[:text]).to eq(valid_comment[:text])
-      expect(response).to match_response_schema("comment")
+      expect(response).to match_response_schema('comment')
     end
 
     it 'doesn\'t create invalid comment' do
@@ -50,10 +50,7 @@ RSpec.describe Api::V1::CommentsController, type: :controller do
 
     it 'deletes comment from task' do
       expect do
-        delete :destroy, params: { id: comment.id,
-                                   task_id: comment.task_id,
-                                   project_id: project.id
-                                 }
+        delete :destroy, params: { id: comment.id, task_id: comment.task_id, project_id: project.id }
       end.to change(Comment, :count).by(-1)
     end
   end

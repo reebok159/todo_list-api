@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
-  apipie
-
   mount_devise_token_auth_for 'User', at: 'api/v1/auth'
+  apipie
 
   root 'apipie/apipies#index'
 

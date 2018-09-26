@@ -1,32 +1,34 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
   "https://github.com/#{repo_name}.git"
 end
 
+gem 'acts_as_list'
+gem 'apipie-rails', '~> 0.5.5'
+gem 'cancancan', '~> 2.0'
+gem 'carrierwave', '~> 1.1'
+gem 'devise_token_auth', '~> 0.1.42'
+gem 'fog-aws', '~> 1.4', '>= 1.4.1'
+gem 'fog-google'
+gem 'google-api-client', '> 0.8.5', '< 0.9'
 gem 'i18n', '~> 0.9.1'
-gem 'rails', '~> 5.1.4'
+gem 'jbuilder', '~> 2.5'
+gem 'mini_magick', '~> 4.8'
 gem 'pg', '~> 0.21.0'
 gem 'puma', '~> 3.7'
-gem 'jbuilder', '~> 2.5'
-gem 'devise_token_auth', '~> 0.1.42'
-gem 'apipie-rails', '~> 0.5.5'
-gem 'acts_as_list'
-gem 'cancancan', '~> 2.0'
 gem 'rack-cors', require: 'rack/cors'
-gem 'fog-aws', '~> 1.4', '>= 1.4.1'
-gem "fog-google"
-gem "google-api-client", "> 0.8.5", "< 0.9"
-gem 'carrierwave', '~> 1.1'
-gem 'mini_magick', '~> 4.8'
+gem 'rails', '~> 5.1.4'
 
 group :development, :test do
-  gem 'dotenv-rails', '~> 2.2', '>= 2.2.1'
-  gem 'rspec-rails', '~> 3.7', '>= 3.7.2'
-  gem 'pry-byebug', '~> 3.5', '>= 3.5.1'
-  gem 'ffaker', '~> 2.7'
   gem 'brakeman'
+  gem 'dotenv-rails', '~> 2.2', '>= 2.2.1'
+  gem 'ffaker', '~> 2.7'
+  gem 'pry-byebug', '~> 3.5', '>= 3.5.1'
+  gem 'rspec-rails', '~> 3.7', '>= 3.7.2'
   gem 'rubocop', require: false
 end
 
@@ -44,4 +46,4 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
