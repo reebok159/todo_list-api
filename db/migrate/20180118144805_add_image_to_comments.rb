@@ -1,5 +1,7 @@
 class AddImageToComments < ActiveRecord::Migration[5.1]
   def change
-    add_column :comments, :image, :string
+    change_table :comments do |t|
+      t.string :image
+    end
   end
 end

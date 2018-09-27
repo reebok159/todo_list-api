@@ -1,8 +1,7 @@
 class AddUserIdToProject < ActiveRecord::Migration[5.1]
   def change
-    add_column :projects, :user_id, :integer
-
-    add_foreign_key :projects, :users
-    add_index :projects, :user_id
+    change_table :projects do |t|
+      t.references :user, index: true, foreign_key: true
+    end
   end
 end
