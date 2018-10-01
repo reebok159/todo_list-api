@@ -21,7 +21,7 @@ gem 'mini_magick', '~> 4.8'
 gem 'pg', '~> 0.21.0'
 gem 'puma', '~> 3.7'
 gem 'rack-cors', require: 'rack/cors'
-gem 'rails', '~> 5.1.4'
+gem 'rails', '~> 5.1', '>= 5.1.6'
 
 group :development, :test do
   gem 'brakeman'
