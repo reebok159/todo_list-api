@@ -1,8 +1,6 @@
 class ImageUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
 
-  storage :fog
-
   def size_range
     0..10.megabytes
   end

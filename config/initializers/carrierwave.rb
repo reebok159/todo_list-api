@@ -1,4 +1,16 @@
 CarrierWave.configure do |config|
+  if Rails.env.development? || Rails.env.test?
+    CarrierWave.configure do |config|
+      config.storage = :file
+    end
+  end
+
+  if Rails.env.production?
+    CarrierWave.configure do |config|
+      config.storage = :fog
+    end
+  end
+
   config.fog_provider = 'fog/google'
   config.fog_credentials = {
     provider: 'Google',

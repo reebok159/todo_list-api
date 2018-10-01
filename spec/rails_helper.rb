@@ -3,7 +3,7 @@ start_simpleCov = false
 if start_simpleCov
   require 'simplecov'
   SimpleCov.start 'rails'
-  puts "required simplecov"
+  puts "simplecov started"
 end
 
 require 'spec_helper'
@@ -14,6 +14,7 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 require "json_matchers/rspec"
+
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
     with.test_framework :rspec
@@ -29,11 +30,8 @@ ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: :controller
-  # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-
   config.include FactoryBot::Syntax::Methods
-  config.include TasksSpecHelper
-  config.include AppHelper
+
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
