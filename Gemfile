@@ -28,7 +28,6 @@ group :development, :test do
   gem 'dotenv-rails', '~> 2.2', '>= 2.2.1'
   gem 'ffaker', '~> 2.7'
   gem 'pry-byebug', '~> 3.5', '>= 3.5.1'
-  gem 'rspec-rails', '~> 3.7', '>= 3.7.2'
   gem 'rubocop', require: false
 end
 
@@ -36,8 +35,10 @@ group :test do
   gem 'database_cleaner', '~> 1.6.1'
   gem 'factory_bot_rails', '~> 4.8', '>= 4.8.2'
   gem 'json_matchers', '~> 0.7.2'
-  gem 'shoulda-matchers', '~> 3.1'
+  gem 'rspec-rails', '~> 3.7', '>= 3.7.2'
+  gem 'shoulda-matchers', github: 'thoughtbot/shoulda-matchers', branch: 'rails-5'
   gem 'simplecov', require: false
+  gem 'rails_best_practices', require: false
 end
 
 group :development do
