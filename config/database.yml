@@ -19,6 +19,7 @@ default: &default
   encoding: unicode
   # For details on connection pooling, see Rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
+  host: localhost
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
@@ -80,6 +81,6 @@ test:
 #
 production:
   <<: *default
-  database: todo_list-api_production
-  username: todo_list-api
+  database: <%= ENV['DB_NAME'] %>
+  username: <%= ENV['DB_USER'] %>
   password: <%= ENV['TODO_LIST-API_DATABASE_PASSWORD'] %>
