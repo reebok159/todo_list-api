@@ -28,7 +28,7 @@ module Api
       api :GET, '/api/v1/projects/:project_id/tasks/', 'Show tasks from project'
       param :project_id, :number, desc: 'Project id', required: true
       def index
-        render json: @tasks
+        render json: @tasks.sort_by_position
       end
 
       api :POST, '/api/v1/projects/:project_id/tasks/', 'Add task to project'
